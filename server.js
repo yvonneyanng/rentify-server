@@ -5,7 +5,13 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 5050;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://rentify-client-chi.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 const CARS_PATH = path.join(__dirname, "data", "cars.json");
