@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 5050;
 
 app.use(
   cors({
-    origin: ["https://rentify-client-chi.vercel.app", "http://localhost:5173/"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: ["https://rentify-client-chi.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     credentials: true,
   })
 );
