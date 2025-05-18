@@ -27,14 +27,16 @@ app.get("/api/cars", async (req, res) => {
     const data = await fs.readFile(CARS_PATH, "utf-8");
     let cars = JSON.parse(data).cars;
     if (search && search.trim() !== "") {
-      const s = search.toLowerCase();
-      cars = cars.filter(
-        (car) =>
-          car.brand.toLowerCase().includes(s) ||
-          car.carModel.toLowerCase().includes(s) ||
-          (car.description && car.description.toLowerCase().includes(s)) ||
-          car.carType.toLowerCase().includes(s)
-      );
+      const searchTerms = search.toLowerCase().trim().split(/\s+/);
+      cars = cars.filter((car) => {
+        return searchTerms.some(
+          (term) =>
+            car.brand.toLowerCase().includes(term) ||
+            car.carModel.toLowerCase().includes(term) ||
+            (car.description && car.description.toLowerCase().includes(term)) ||
+            car.carType.toLowerCase().includes(term)
+        );
+      });
     }
     if (type && type.trim() !== "") {
       cars = cars.filter(
