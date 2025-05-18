@@ -5,6 +5,7 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 5050;
 
+// ======================MIDDLEWARES======================
 app.use(
   cors({
     origin: ["https://rentify-client-chi.vercel.app"],
@@ -17,10 +18,12 @@ app.use(express.json());
 const CARS_PATH = path.join(__dirname, "data", "cars.json");
 const ORDERS_PATH = path.join(__dirname, "data", "orders.json");
 
+// ======================HEALTH CHECK======================
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+// ======================GET CARS DATA======================
 app.get("/api/cars", async (req, res) => {
   try {
     const { search = "", type, brand } = req.query;
@@ -54,6 +57,7 @@ app.get("/api/cars", async (req, res) => {
   }
 });
 
+// ======================POST ORDER======================
 app.post("/api/orders", async (req, res) => {
   try {
     const { customer, car, rental } = req.body;
@@ -79,6 +83,7 @@ app.post("/api/orders", async (req, res) => {
   }
 });
 
+// ======================PATCH ORDER======================
 app.patch("/api/orders/:vin/confirm", async (req, res) => {
   try {
     const vin = req.params.vin;
@@ -105,6 +110,7 @@ app.patch("/api/orders/:vin/confirm", async (req, res) => {
   }
 });
 
+// ======================GET ORDER======================
 app.get("/api/orders/:vin", async (req, res) => {
   try {
     const vin = req.params.vin;
@@ -120,6 +126,7 @@ app.get("/api/orders/:vin", async (req, res) => {
   }
 });
 
+// ======================LISTENING PORT======================
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
